@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+   <meta charset='UTF-8'>
+   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+   <!--! Save this with a different name IMMEDIATELY so you don't overwrite the template -->
+
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+   <!--* Bootstrap 5: -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+      integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+      integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+   <!--* DOMPurify, to purify user input: -->
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.2/purify.min.js"
+      integrity="sha512-UNx/heftzHGdkzGv6+EfpiDKjQreuyx5TkMMbhajPIhD/vURj+eNQSEnjK0ySGGS8qIR9cYpzYGSZY2LkUK07Q=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   <!--* highlight.js: -->
+
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+   <script type='text/babel' data-type='module'>
+      'use strict'
+
+      import { marked } from "https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/lib/marked.esm.js"
+      console.log(hljs.getLanguage)
+      marked.setOptions({
+         breaks: true,
+         highlight: function (code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+         }
+      })
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<MarkdownPreviewer />)
+      //
+      function Editor({ text, onChange }) {
+         return (
+            <>
+               <h2 className="text-bg-primary rounded text-center p-1">Editor</h2>
+               <textarea
+                  id="editor"
+                  className='d-block p-1 border border-2 rounded border-primary w-100 h-100'
+                  rows='10'
+                  spellCheck='false'
+                  onChange={onChange}
+                  defaultValue={'# header 1\n## header 2\n`const truth =` [NB](https://youtu.be/_1qx0fPU4Zs);\n\n```javascript\nconsole.log(truth)\n```\n\n1. Imperialism is not a conspiracy\n\n>"Official Washington cannot tell the American people that the real purpose of its gargantuan military expenditures and belligerent interventions is to make the world safe for General Motors, General Electric, General Dynamics, and all the other generals"\n\n>-Michael Parenti\n\n![The Nobel Peace Prize](https://politicalmemestoday.files.wordpress.com/2014/09/obama-bomb-syria-meme.jpg?w=150)\n\n**The Nobel Peace Prize**'}>
+               </textarea>
+            </>
+         )
+      }
+      function Preview({ text }) {
+         const html = { __html: DOMPurify.sanitize(marked.parse(text)) }
+
+         return (
+            <>
+               <h2 className='text-bg-info rounded text-center p-1'>Preview</h2>
+               <div
+                  id="preview"
+                  className='border border-2 rounded border-secondary'
+                  dangerouslySetInnerHTML={html}>
+               </div>
+            </>
+         )
+      }
+      function MarkdownPreviewer() {
+         const [text, setText] = React.useState('')
+
+         React.useEffect(() => {
+            const editor = document.getElementById('editor')
+
+            setText(editor.defaultValue)
+         }, [])
+
+         return (
+            <>
+               <div className='d-block w-100 overflow-x-auto overflow-y-scroll border border-5 rigid'>
+                  <Editor
+                     text={text}
+                     onChange={(event) => {
+                        setText(event.target.value)
+                     }} />
+               </div>
+               <div className='w-100'>
+                  <Preview text={text} />
+               </div>
+            </>
+         )
+      }
+
+   </script>
+   <title>Markdown Previewer</title>
+</head>
+
+<body>
+   <h1 class='text-bg-dark p-2 text-center'>Markdown Previewer</h1>
+   <main id='root' class='d-flex flex-col-reverse p-3 border border-4'>
+   </main>
+
+</body>
+
+</html>

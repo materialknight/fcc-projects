@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box ;
+  border-radius: 5px ;
+
+}
+
+body {
+   background: MidnightBlue ;
+}
+header, #description, form {
+   background: Linen ;
+}
+h1, #description, legend {
+   padding: 5px ;
+   text-align: center ;
+   font-family: 'Trebuchet MS' ;
+
+}
+#description, legend {
+   font: 18px Helvetica
+}
+
+hr {
+   border-bottom: 2px dashed SlateGray;
+   margin: 10px 0 0 ;
+}
+
+fieldset>p {
+   margin: 10px 0 ;
+}
+
+fieldset {
+   border: 10px solid SlateGray;
+}
+
+form {
+   padding: 5px ;
+}
+fieldset {
+margin: 10px ;
+padding-left: 25px ;
+}
+
+textarea {
+   display: block ;
+   width: 100%;
+}
+label {
+   display: block ;
+}
+
+[name='submit-btn'] {
+   background-color: MediumSpringGreen ;
+   border-radius: 5px ;
+   cursor: pointer ;
+   color: MidnightBlue ;
+   border: 3px solid currentcolor ;
+   display: block ;
+   padding: 4px 10px ;
+   margin: 10px auto ;
+   font: bold 30px Tahoma ;
+}
+
+[name='submit-btn']:hover {
+   background-color: green;
+}
+[type='radio'], [type='checkbox'] {
+  /* appearance: none ; */
+  width: 20px ;
+  height: 20px ;
+  border: 20px solid MediumSpringGreen ;
+  vertical-align: text-top ;
+}
+
+
+/* #bbbbbb is a beautiful color*/

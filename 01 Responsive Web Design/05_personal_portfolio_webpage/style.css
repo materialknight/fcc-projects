@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: fixed;
+    background: #236AB9;
+    width: 100%;
+    z-index: 1;
+}
+a {
+    color: #FDDC22;
+    text-decoration: none;
+    padding: 1rem;
+}
+a:hover {
+    background-color: cadetblue;
+}
+nav {
+    display: flex;
+    justify-content: flex-end;
+    font: 1.2rem 'Courier New'
+}
+body {
+    background: #F7F2D4;
+}
+main {
+    position: relative;
+    top: 4rem;
+    padding: 1rem;
+    font: 1.2rem 'Trebuchet MS';
+    display: flex;
+    flex-direction: column;
+}
+h1, h2 {
+    color: #D61A46;
+}
+h1 {
+    font: 3rem 'Trebuchet MS';
+}
+h2 {
+    font: 2rem 'Trebuchet Ms';
+}
+p {
+    padding: 0.5rem;
+}
+#projects {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid green;
+}
+.project-tile {
+    border: 2px solid red;
+    color: #0F3157;
+    display: inline-block;
+}
+footer {
+    position: fixed;
+    width: 100%;
+    background: #236AB9;
+    bottom: 0;
+}
+address {
+    display: flex;
+    justify-content: flex-end;
+}
+@media screen and (max-width: 700px) {
+    .project-tile {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 701px) {
+    .project-tile {
+        width: 50%;
+    }
+}
+@media screen and (min-width: 1201px) {
+    .project-tile {
+        width: 25%;
+    }
+}

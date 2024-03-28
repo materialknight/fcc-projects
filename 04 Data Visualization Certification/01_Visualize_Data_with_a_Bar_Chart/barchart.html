@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+   <meta charset='UTF-8'>
+   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+   <style>
+      h1 {
+         text-align: center;
+         font: 1.3rem 'Lucida Console';
+      }
+
+      body {
+         position: relative;
+      }
+
+      rect {
+         fill: green;
+
+         &:hover {
+            fill: brown;
+         }
+      }
+
+      .hidden {
+         visibility: hidden;
+      }
+
+      .shown {
+         visibility: visible;
+      }
+
+      #tooltip {
+         padding: 0.5em;
+         position: absolute;
+         top: 15em;
+         left: 43%;
+         border: 2px solid red;
+         border-radius: 6px;
+
+      }
+
+      svg {
+         border: 2px solid blue;
+         background: lavender;
+         display: block;
+         margin: auto;
+      }
+   </style>
+
+   <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.js"
+      integrity="sha512-NmSTfudjn1FCaFMQ+f4xveBmwRJn5ep8Wu+YOeq+CeExhFtKvwhfKVXFX3tGxoGWxu8Fl83qm9nE8/Hkc1dWZg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+   <title>D3 Debugging</title>
+</head>
+
+<body>
+   <h1 id='title'>US' Yearly GDP</h1>
+   <div id='tooltip' class='hidden'></div>
+   <svg id='bar-chart'></svg>
+
+   <script>
+      'use strict'
+
+      const svg = d3.select('svg')
+         .attr('width', 1000)
+         .attr('height', 530)
+
+      const tooltip = d3.select('#tooltip')
+
+      const updown_offset = 30,
+         leftright_offset = 40
+
+      const gdpScale = d3.scaleLinear(
+         [19000, 0],
+         [updown_offset, svg.attr('height') - updown_offset])
+
+      const yearScale = d3.scaleTime(
+         [new Date('1947-01'), new Date('2016-01')],
+         [leftright_offset, svg.attr('width') - leftright_offset])
+
+      svg.append('g')
+         .attr('id', 'y-axis')
+         .attr('transform', `translate(${leftright_offset},0)`)
+         .call(d3.axisLeft(gdpScale));
+
+      svg.append('g')
+         .attr('id', 'x-axis')
+         .attr('transform', `translate(0, ${svg.attr('height') - updown_offset})`)
+         .call(d3.axisBottom(yearScale))
+
+      d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json')
+         .then(response => {
+            const bar_width = (svg.attr('width') - leftright_offset * 2) / response.data.length
+
+            svg.selectAll('rect')
+               .data(response.data)
+               .enter()
+               .append('rect')
+               .attr('class', 'bar')
+               .attr('data-date', d => d[0])
+               .attr('data-gdp', d => d[1])
+               .attr('width', bar_width)
+               .attr('height', d => svg.attr('height') - updown_offset - gdpScale(d[1]))
+               .attr('y', d => gdpScale(d[1]))
+               .attr('x', d => yearScale(new Date(d[0])))
+               .on('mouseover', (e, d) => {
+                  return tooltip
+                     .attr('class', 'shown')
+                     .attr('data-date', () => d[0])
+                     .text(`$ ${d[1]} Billion`)
+               })
+               .on('mouseout', (e, d) => {
+                  return tooltip.attr('class', 'hidden')
+               })
+
+            return null
+
+         }).catch(error => console.log(error))
+
+   </script>
+</body>
+
+</html>

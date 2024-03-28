@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='author' content='Andrés Pichinte'>
+    <meta name='description' content='FreeCodeCamp Project 06: Palindrome Checker'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href=''>
+    <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+    <!-- <link rel='icon' type='image/x-icon' href='/images/favicon.ico'> -->
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <h1></h1>
+      <nav>
+      </nav>
+    </header>
+    <main>
+      <script>
+      'use strict'
+
+      function palindrome(str) {
+        let purStr = str.match(/[a-z0-9]/gi)
+        purStr = purStr.map(char => char.toLowerCase());
+        const revStr = [...purStr].reverse().toString()
+        purStr = purStr.toString()
+        return purStr === revStr ? true : false
+      }
+
+      console.log(palindrome("1 eye for of 1 eye."))
+
+
+      const testArray = [
+        "eye" ,
+        "_eye" ,
+        "race car" ,
+        "A man, a plan, a canal. Panama",
+        "never odd or even",
+        "nope",
+        "almostomla",
+        "My age is 0, 0 si ega ym.",
+        "1 eye for of 1 eye.",
+        "0_0 (: /-\ :) 0-0",
+        "five|\_/|four"
+      ]
+
+      testArray.forEach(elem => console.log(palindrome(elem)));
+
+
+      // "eye" // true
+      // "_eye" // true
+      // "race car" // true
+      // "A man, a plan, a canal. Panama" // true
+      // "never odd or even" // true
+      // "nope" // false
+      // "almostomla" // false
+      // "My age is 0, 0 si ega ym." // true
+      // "1 eye for of 1 eye." // // false
+      // "0_0 (: /-\ :) 0-0" // // true
+      // "five|\_/|four" // false
+
+      const pur = [1,2,3,4,5]
+      let tar = [[34]]
+
+      console.log(tar)
+
+      tar = [...pur].reverse().toString()
+
+      console.log(tar)
+
+      </script>
+
+    </main>
+    <footer>
+       <address>
+       </address>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box ;
+  border-radius: 5px ;
+  padding: 1px ;
+}
+
+@media only screen and (mix-width: 901px) {
+  main {
+    body {
+      background: LightCyan ;
+    }
+    
+  }
+
+}
+div {
+  display: flex ;
+  width: 100%;
+}
+
+#navbar {
+  display: flex;
+  flex-direction: column ;
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  height: 50%;
+}
+main{
+  position:relative;
+  left: 16%;
+  width: 84%;
+}
+
+header {
+   background: Aquamarine ;
+}
+a {
+  flex: 1;
+  background: Gainsboro ;
+  text-decoration: none ;
+  color: inherit ;
+  border: 5px double DarkGreen ;
+  text-align: center ;
+
+}
+section {
+  border: 2px solid blue ;
+  padding: 5px ;
+  position: relative;
+
+}
+#header1 {
+  text-align: center ;
+  border: 2px solid blue ;
+}
+ul {
+  list-style: inside ;
+}
+
+@media only screen and (max-width: 900px) {
+
+  #navbar {
+    position: relative;
+
+    width: 100%;
+  }
+body{
+  position: relative;
+}
+  main {
+
+    position:relative;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+  }
+  div {
+    display: block;
+    position: relative;
+
+  }
+  body {
+    position: relative;
+  }
+
+}

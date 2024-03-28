@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  padding: 5px;
+  font-family: Georgia;
+  line-height: 1.5;
+}
+
+main {
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'picture timeline'
+    'significance significance';
+  grid-template-columns: max(35%);
+  background-color: beige;
+}
+
+h1, h2, header {
+  text-align: center;
+  padding: 0.2em;
+  margin: 0.2em;
+  line-height: 1em;
+}
+section, ul, article {
+  padding: 0.2em;
+  margin: 0.2em;
+  line-height: 1em;
+}
+p {
+  text-align: justify;
+  padding: 0.3em;
+  margin: 0.3em;
+  text-indent: 2em;
+}
+#timeline {
+  grid-area: timeline;
+}
+
+section, article {
+  border-left: solid black 1px;
+  border-right: solid black 1px;
+}
+
+h1 {grid-area: title;}
+
+.timeline-title {
+  padding-right: 10em;
+}
+
+figure {
+  grid-area: picture;
+  margin: 1em 0 0 0;
+}
+
+figure * {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+ul {
+  text-align: justify;
+}
+
+li {
+  margin: 0 1em 0 2em;
+}
+
+#tribute-info {
+  grid-area: significance;
+  padding: 0 1em 1em 1em;
+}
+@media screen and (max-width: 600px) {
+  main {
+   grid-template-areas:
+    'title title'
+    'picture picture'
+    'timeline timeline'
+    'significance significance';
+  }
+}
+strong {
+  color: green;
+}
+a {
+  text-decoration: none;
+  color: blue;
+}

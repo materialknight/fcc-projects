@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='author' content='Andrés Pichinte'>
+    <meta name='description' content='FreeCodeCamp Project 07: Roman Numeral Converter'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href=''>
+    <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+    <!-- <link rel='icon' type='image/x-icon' href='/images/favicon.ico'> -->
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <h1></h1>
+      <nav>
+      </nav>
+    </header>
+    <main>
+      <script>
+'use strict'
+
+function convertToRoman(num) {
+  const checkpoints = [
+    null,
+    [5, 'I', 'V'],
+    [50, 'X', 'L'],
+    [500, 'C', 'D'],
+    [1000, 'M', 'M']
+  ]
+  let digits = num.toString().length
+  const p = [0, 1, 10, 100, 1000]
+  const splitNum = []
+  while (digits > 0) {
+    let curDigitVal = Math.floor(num / p[digits]) * p[digits]
+    splitNum.push(curDigitVal)
+    num -= curDigitVal
+    digits--
+  }
+  let roman = []
+  splitNum.forEach((e) => {
+    const e_Length = e.toString().length
+    switch (e) {
+      case 0 :
+        break
+      case checkpoints[e_Length][0] :
+        roman.push(checkpoints[e_Length][2])
+        break
+      case checkpoints[e_Length][0] / 5 :
+        roman.push(checkpoints[e_Length][1])
+        break
+      case checkpoints[e_Length][0] - checkpoints[e_Length][0] / 5 :
+        roman.push(checkpoints[e_Length][1])
+        roman.push(checkpoints[e_Length][2])
+        break
+      case (checkpoints[e_Length][0] * 2) - (checkpoints[e_Length][0] / 5) :
+        roman.push(checkpoints[e_Length][1])
+        roman.push(checkpoints[e_Length + 1][1])
+        break
+      default :
+        if (e < checkpoints[e_Length][0]) {
+          let i = e / 10 ** (e_Length - 1)
+          while (i > 0) {
+            roman.push(checkpoints[e_Length][1])
+            i--
+          }
+        } else {
+          roman.push(checkpoints[e_Length][2])
+          let i = (e - checkpoints[e_Length][0]) / 10 ** (e_Length - 1)
+          while (i > 0) {
+            roman.push(checkpoints[e_Length][1])
+            i--
+          }
+        }
+    }
+  })
+  return roman.join('')
+}
+
+function convertToRoman2(num) {
+
+  console.log(num)
+
+  const checkpointsObj = {
+    1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX',
+    10: 'X', 20: 'XX', 30: 'XXX', 40: 'XL', 50: 'L', 60: 'LX', 70: 'LXX', 80: 'LXXX', 90: 'XC',
+    100: 'C', 200: 'CC', 300: 'CCC', 400: 'CD', 500: 'D', 600: 'DC', 700: 'DCC', 800: 'DCCC', 900: 'CM',
+    1000: 'M', 2000: 'MM', 3000: 'MMM'
+  }
+  let digits = num.toString().length
+  const p = [0, 1, 10, 100, 1000]
+  const splitNum = []
+  while (digits > 0) {
+    let curDigitVal = Math.floor(num / p[digits]) * p[digits]
+    splitNum.push(curDigitVal)
+    num -= curDigitVal
+    digits--
+  }
+  const answer = []
+  splitNum.forEach(item => {
+    if (item != 0) answer.push(item)
+  });
+  return answer.map(item => checkpointsObj[item]).join('')
+}
+
+const testArray = [
+  2, // should return the string II.
+  3, // should return the string III.
+  4, // should return the string IV.
+  5, // should return the string V.
+  9, // should return the string IX.
+  12, // should return the string XII.
+  16, // should return the string XVI.
+  29, // should return the string XXIX.
+  44, // should return the string XLIV.
+  45, // should return the string XLV.
+  68, // should return the string LXVIII
+  83, // should return the string LXXXIII
+  97, // should return the string XCVII
+  99, // should return the string XCIX
+  400, // should return the string CD
+  500, // should return the string D
+  501, // should return the string DI
+  649, // should return the string DCXLIX
+  798, // should return the string DCCXCVIII
+  891, // should return the string DCCCXCI
+  1000, // should return the string M
+  1004, // should return the string MIV
+  1006, // should return the string MVI
+  1023, // should return the string MXXIII
+  2014, // should return the string MMXIV
+  3999 // should return the string MMMCMXCIX
+]
+
+testArray.forEach(elem => console.log(convertToRoman2(elem)))
+
+      </script>
+    </main>
+    <footer>
+       <address>
+       </address>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='author' content='Andrés Pichinte'>
+  <meta name='description' content='FreeCodeCamp Project 04: Landing Page'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='styles.css'>
+  <!-- Media Queries are not detected by the test conducted by the sript below, unless you serve the page!!! -->
+  <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+  <link rel='icon' type='image/x-icon' href='the-magic-lu-logo.jpg'>
+  <title>The Magic Lu Custom Gifts</title>
+</head>
+<body>
+<header id='header'>
+  <img id='header-img' src="the-magic-lu-logo.jpg" alt="">
+  <h1>The Magic Lu</h1>
+  <nav id='nav-bar'>
+    <a class='nav-link' href="#video">Get to know us</a>
+    <a class='nav-link' href="#form">Make your order</a>
+    <a class='nav-link' href="#contact">Get in touch with us</a>
+  </nav>
+</header>
+<main>
+  <h2>Custom Gifts</h2>
+  <video id='video'>Sorry, the browser doesn't support either the html video tag, or the .mp4 format 😕
+    <source src="tml.mp4" type="video/mp4">
+  </video>
+  <form id='form' action='https://www.freecodecamp.com/email-submit' method='post'>
+    <label> Get your custom Gift!
+      <input id='email' name='email' type='email' placeholder='Enter your email address' autofocus>
+    </label>
+    <input id='submit' type='submit' value='submit'>
+  </form>
+</main>
+<footer id="contact">
+  <address>
+    Any questions? Let us know!
+    <br>
+    email: themagiclu@gmail.com
+    <br>
+    phone: 503-2365-9871
+  </address>
+  Copyright &copy; 2022, The Magic Lu
+</footer>
+</body>
+</html>

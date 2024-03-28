@@ -1,0 +1,96 @@
+body {
+   background-color: azure;
+}
+
+body * {
+   box-sizing: border-box;
+}
+
+#heater-1 {
+   grid-area: a1;
+}
+
+#heater-2 {
+   grid-area: a2;
+}
+
+#heater-3 {
+   grid-area: a3;
+}
+
+#heater-4 {
+   grid-area: b1;
+}
+
+#clap {
+   grid-area: b2;
+}
+
+#open-hh {
+   grid-area: b3;
+}
+
+#kick-n-hat {
+   grid-area: c1;
+}
+
+#kick {
+   grid-area: c2;
+}
+
+#closed-hh {
+   grid-area: c3;
+}
+
+#drum-machine {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 0.6rem;
+}
+
+.keypad {
+   text-align: center;
+   display: grid;
+   gap: 4px;
+
+   grid-template:
+      'a1 a2 a3' 3.5rem
+      'b1 b2 b3' 3.5rem
+      'c1 c2 c3' 3.5rem /
+      3.5rem 3.5rem 3.5rem;
+}
+
+#display {
+   width: 10rem;
+   height: 2rem;
+   font: bold 1.2rem/2rem helvetica;
+   margin: 0 auto 0.5rem auto;
+}
+
+.drum-pad {
+   border: 1px solid blue;
+   background: bisque;
+   font: bold 1.7rem/5rem helvetica;
+   color: darkred;
+   line-height: 3.5rem;
+
+   &:hover {
+      background-color: greenyellow;
+   }
+
+   &:active {
+      background-color: darkkhaki;
+      margin: 4px;
+   }
+}
+
+.active {
+   background-color: darkkhaki;
+   margin: 4px;
+}
+
+h1 {
+   margin: 0.8rem;
+   color: seagreen;
+}

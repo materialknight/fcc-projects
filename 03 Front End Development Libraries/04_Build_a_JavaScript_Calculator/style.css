@@ -1,0 +1,156 @@
+* {
+   box-sizing: border-box;
+}
+
+body {
+   background-color: pink;
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+#formula,
+#display,
+.key {
+   border-radius: 8px;
+   text-align: center;
+   margin: 2px;
+}
+
+main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+h1 {
+   margin: 1rem;
+   color: seagreen;
+   text-align: center;
+}
+
+#calculator {
+   margin: 0.5rem auto;
+   font-size: 1.3rem;
+   display: grid;
+   grid-template:
+      'formu formu formu formu' 3.5rem
+      'disp disp disp disp' 3.5rem
+      'clear clear per times' 3.5rem
+      'seven eight nine minus' 3.5rem
+      'four five six plus' 3.5rem
+      'one two three eq' 3.5rem
+      'zero zero dec eq' 3.5rem /
+      3.5rem 3.5rem 3.5rem 3.5rem;
+}
+
+.key {
+   line-height: 3rem;
+   color: azure;
+
+   &:hover {
+      background-color: coral;
+   }
+
+   &:active {
+      background-color: dodgerblue;
+      margin: 5px;
+   }
+}
+
+.num {
+   background: royalblue;
+}
+
+.op {
+   background: darkcyan;
+   font-weight: bold;
+}
+
+.sp {
+   background: olive;
+}
+
+#zero {
+   grid-area: zero;
+}
+
+#one {
+   grid-area: one;
+}
+
+#two {
+   grid-area: two;
+}
+
+#three {
+   grid-area: three;
+}
+
+#four {
+   grid-area: four;
+}
+
+#five {
+   grid-area: five;
+}
+
+#six {
+   grid-area: six;
+}
+
+#seven {
+   grid-area: seven;
+}
+
+#eight {
+   grid-area: eight;
+}
+
+#nine {
+   grid-area: nine;
+}
+
+#add {
+   grid-area: plus;
+}
+
+#subtract {
+   grid-area: minus;
+}
+
+#multiply {
+   grid-area: times;
+}
+
+#divide {
+   grid-area: per;
+}
+
+#decimal {
+   grid-area: dec;
+}
+
+#equals {
+   grid-area: eq;
+}
+
+#clear {
+   grid-area: clear;
+}
+
+#display {
+   grid-area: disp;
+   background: lightgoldenrodyellow;
+   border: 1px solid seagreen;
+}
+
+#formula {
+   grid-area: formu;
+   background: lightgoldenrodyellow;
+   border: 1px solid seagreen;
+}
+
+#display,
+#formula {
+   text-align: right;
+   padding: 0.8rem;
+}

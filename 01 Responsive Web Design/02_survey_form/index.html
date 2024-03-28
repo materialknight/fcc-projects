@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='author' content='Andrés Pichinte'>
+    <meta name='description' content='FreeCodeCamp Project 02: Survey Form'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='styles.css'>
+    <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+    <!-- <link rel='icon' type='image/x-icon' href='/images/favicon.ico'> -->
+    <title>Survey Form</title>
+  </head>
+  <body>
+    <header>
+      <h1 id='title'>FCC Project 2 - Survey Form</h1>
+      <nav>
+      </nav>
+    </header>
+    <main>
+      <h2></h2>
+      <p id='description'>Subscribe to our Newsletter ^_^</p>
+      <form id='survey-form' autocomplete> <!--can 'autocomplete' be a boolean attribute?-->
+        <fieldset>
+          <legend>Your Data ^_~</legend>
+          <label id='name-label'>Name <input type='text' id='name' name='' placeholder='John Doe' autofocus required></label>
+          <label id='email-label'>Email <input type='email' id='email' name='' placeholder='johndoe1990@gmail.com' required></label>
+          <label id='number-label'>Age (optional) <input type='number' id='number' name='' min='13' max='99' placeholder='32'></label>
+        </fieldset>
+        <fieldset>
+          <legend>Settings & Feedback（。＾▽＾）</legend>
+          <p>How often would you like to receive our Newsletter?</p>
+          <label>
+            <select id='dropdown'>
+              <option value='once a week'>Once a week</option>
+              <option value='once a month'>Once a month</option>
+            </select>
+          </label>
+          <hr>
+          <p>Would you like to receive short Tips & Tricks from time to time?</p>
+          <label id='tips-yes-label'>
+            <input type='radio' id='tips-yes' name='tips-tricks' value='yes'>
+            Sure! :D
+          </label>
+          <label id='tips-no-label'>
+            <input type='radio' id='tips-no' name='tips-tricks' value='no'>
+            Nah, thanks!
+          </label>
+          <hr>
+          <p>Select the content of your Newsletter:</p>
+          <label>
+            <input type='checkbox' class='letter-content' name='letter-content' value='no'>
+            Fintech, Crypto & Financial Literacy.
+          </label>
+          <label>
+            <input type='checkbox' class='letter-content' name='letter-content' value='no'>
+            New Features of Web Development Technologies.
+          </label>
+          <label>
+            <input type='checkbox' class='letter-content' name='letter-content' value='no'>
+            Big Tech News.
+          </label>
+          <hr>
+          <p>Additional Comments:</p>
+          <textarea name='' rows='3' maxlength='400' placeholder='Write a comment here, if you want.'></textarea>
+        </fieldset>
+        <button id='submit' type='submit' name='submit-btn' value='submit'>SUBMIT</button>
+      </form>
+    </main>
+    <footer>
+      <address>
+      </address>
+    </footer>
+  </body>
+</html>

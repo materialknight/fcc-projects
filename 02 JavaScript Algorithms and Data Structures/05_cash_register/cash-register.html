@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='author' content='Andrés Pichinte'>
+    <meta
+      name='description'
+      content='FreeCodeCamp, JavaScript Algorithms and Data Structures - Project 05: Cash Register'
+    >
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href=''>
+    <script defer src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+    <!-- <link rel='icon' type='image/x-icon' href='/images/favicon.ico'> -->
+    <title>Cash Register</title>
+  </head>
+  <body>
+    <p id='demo'></p>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      'use strict'
+      function checkCashRegister(price, cash, cid) {
+        let dueChange = cash - price
+        const denoms = [
+          100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01
+        ]
+        let status = 'INSUFFICIENT_FUNDS'
+        let change = []
+        let cashInDrawer = Number(
+          cid
+          .reduce((r, e) => {
+            return r + e[1]
+          }, 0)
+          .toFixed(2)
+        )
+        const inDrawerMinusChange = Number(
+          (cashInDrawer - dueChange)
+          .toFixed(2)
+        )
+
+        if (inDrawerMinusChange < 0) {
+          return {status, change}
+        }
+
+        let subtrahend = null
+
+        cid.reverse()
+
+        for (let i = 0 ; i < cid.length ; i ++) {
+          if (dueChange === 0) break
+
+          subtrahend =
+            Math.floor(dueChange / denoms[i])
+            * denoms[i]
+
+          const currency = cid[i]
+
+          if (subtrahend > currency[1]) {
+            change.push([currency[0], currency[1]])
+            dueChange = Number(
+              (dueChange - currency[1])
+              .toFixed(2)
+            )
+          } else {
+            change.push([currency[0], subtrahend])
+            dueChange = Number(
+              (dueChange - subtrahend)
+              .toFixed(2)
+            )
+          }
+        }
+
+        if (dueChange > 0) {
+          change = []
+        } else if (inDrawerMinusChange === 0) {
+          status = 'CLOSED'
+          change.reverse()
+        } else {
+          status = 'OPEN'
+          change = change
+            .filter(e => e[1] > 0)
+        }
+
+        return {
+          status: status,
+          change: change
+        }
+      }
+
+      console.log(
+        checkCashRegister(19.5, 20,
+          [
+            ["PENNY", 1.01],
+            ["NICKEL", 2.05],
+            ["DIME", 3.1],
+            ["QUARTER", 4.25],
+            ["ONE", 90],
+            ["FIVE", 55],
+            ["TEN", 20],
+            ["TWENTY", 60],
+            ["ONE HUNDRED", 100]
+          ]
+        ), '\n\n',
+        checkCashRegister(3.26, 100,
+          [
+            ["PENNY", 1.01],
+            ["NICKEL", 2.05],
+            ["DIME", 3.1],
+            ["QUARTER", 4.25],
+            ["ONE", 90],
+            ["FIVE", 55],
+            ["TEN", 20],
+            ["TWENTY", 60],
+            ["ONE HUNDRED", 100]
+          ]
+        ), '\n\n',
+        checkCashRegister(19.5, 20,
+          [
+            ["PENNY", 0.01],
+            ["NICKEL", 0],
+            ["DIME", 0],
+            ["QUARTER", 0],
+            ["ONE", 0],
+            ["FIVE", 0],
+            ["TEN", 0],
+            ["TWENTY", 0],
+            ["ONE HUNDRED", 0]
+          ]
+        ), '\n\n',
+        checkCashRegister(19.5, 20,
+          [
+            ["PENNY", 0.01],
+            ["NICKEL", 0],
+            ["DIME", 0],
+            ["QUARTER", 0],
+            ["ONE", 1],
+            ["FIVE", 0],
+            ["TEN", 0],
+            ["TWENTY", 0],
+            ["ONE HUNDRED", 0]
+          ]
+        ), '\n\n',
+        checkCashRegister(19.5, 20,
+          [
+            ["PENNY", 0.5],
+            ["NICKEL", 0],
+            ["DIME", 0],
+            ["QUARTER", 0],
+            ["ONE", 0],
+            ["FIVE", 0],
+            ["TEN", 0],
+            ["TWENTY", 0],
+            ["ONE HUNDRED", 0]
+          ]
+        )
+      )
+    })
+    </script>
+   </body>
+</html>

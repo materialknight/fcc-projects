@@ -1,0 +1,54 @@
+body * {
+   box-sizing: border-box;
+   text-transform: capitalize;
+   text-align: center;
+   font-family: verdana;
+   font-size: 1.5rem;
+}
+
+h1 {
+   color: oldlace;
+}
+
+body {
+   padding: 1rem 1.5rem;
+   background-color: steelblue;
+}
+
+#break {
+   grid-area: break;
+   background-color: turquoise;
+}
+
+#session {
+   grid-area: session;
+   background-color: lightcyan;
+}
+
+#timer {
+   grid-area: timer;
+}
+
+main {
+   display: grid;
+   gap: 1.5rem;
+   padding: 1rem;
+   justify-content: center;
+   grid-template-areas:
+      'break break session session'
+      '. timer timer .';
+}
+
+section {
+   border-radius: 11px;
+   padding: 0 1rem 1.5rem;
+   width: 16rem;
+}
+
+.running-break {
+   background-color: turquoise;
+}
+
+.running-session {
+   background-color: lightcyan;
+}

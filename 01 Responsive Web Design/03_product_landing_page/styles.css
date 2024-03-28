@@ -1,0 +1,18 @@
+* {box-sizing: border-box;}
+
+#header-img {
+    height: 155px;
+    width: 100%;
+}
+#nav-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+}
+.nav-link {
+    flex: 33%;
+    text-align: center;
+    background-color: bisque;
+}
