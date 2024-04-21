@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const dns = require('dns')
 const app = express();
 
 // Basic Configuration
@@ -14,13 +15,9 @@ const urlSchema = new mongoose.Schema({
    original_url: String,
    short_url: Number,
 })
-
 const URLModel = mongoose.model('URL', urlSchema)
 
-const sequenceSchema = new mongoose.Schema({
-   current_highest_short_url: { type: Number, default: 1 }
-})
-
+const sequenceSchema = new mongoose.Schema({ current_highest_short_url: Number })
 const sequenceModel = mongoose.model('sequence', sequenceSchema)
 
 app.use(
@@ -50,52 +47,90 @@ app.get('/api/shorturl/:short_url', async function (req, res) {
          .select('original_url')
          .exec()
          .then(URLDoc => URLDoc.original_url)
-   } catch (err)
+   }
+   catch (err)
    {
       console.log(err)
+
+      return res.status(500).json({ message: 'Internal server error' })
    }
 
-   console.log(original_url)
    res.redirect(original_url)
 })
 
 app.post(
    '/api/shorturl',
    bodyParser.urlencoded({ extended: false }),
-   async function (req, res) {
+   function (req, res) {
 
       const original_url = req.body.url
-      let short_url = null
 
-      let doc = null
+      let testURL = null
 
-      try
+      try // If the URL constructor throws an error, the input URL is invalid:
       {
-         doc = await URLModel.findOne({ original_url }).exec()
-      } catch (err)
+         testURL = new URL(original_url).hostname
+      }
+      catch
       {
-         console.log(err)
+         return res.json({ error: 'invalid url' })
       }
 
-      if (doc)
-      {
-         short_url = doc.short_url
-         res.json({ original_url, short_url })
-      } else
-      {
-         try
-         {
-            short_url = await sequenceModel.findOne().exec()
-            ++short_url
+      dns.lookup(testURL, async function (err) {
 
-            await new URLModel({ original_url, short_url }).URLDoc.save()
-         } catch (err)
+         if (err)
          {
-            console.log(err)
+            return res.json({ error: 'invalid url' })
          }
 
-         res.json({ original_url, short_url })
-      }
+         let short_url = null
+
+         let URLDoc = null
+         let sequenceDoc = null
+
+         try
+         {
+            URLDoc = await URLModel.findOne({ original_url }).exec()
+         }
+         catch (err)
+         {
+            console.log(err)
+
+            return res.status(500).json({ message: 'Internal server error' })
+         }
+
+         if (URLDoc)
+         {
+            return res.json({ original_url, short_url: URLDoc.short_url })
+         }
+
+         try
+         {
+            sequenceDoc = await sequenceModel.findOne().exec()
+
+            if (sequenceDoc)
+            {
+               short_url = ++sequenceDoc.current_highest_short_url
+               await sequenceDoc.save()
+            }
+            else
+            {
+               short_url = 1
+               await new sequenceModel({ current_highest_short_url: short_url }).save()
+            }
+
+            await new URLModel({ original_url, short_url }).save()
+         }
+         catch (err)
+         {
+            console.log(err)
+
+            return res.status(500).json({ message: 'Internal server error' })
+         }
+
+         return res.json({ original_url, short_url })
+      })
+
    }
 )
 
