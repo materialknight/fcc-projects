@@ -37,11 +37,44 @@ app.get('/', (req, res) => {
 
 app.get('/api/users', async (req, res) => {
 
-   const userDocs = await userModel
-      .find({})
-      .exec()
+   const userDocs = await userModel.find({}).exec()
 
    res.json(userDocs)
+})
+
+app.get('/api/users/:_id/logs', async function (req, res) {
+
+   const userId = req.params._id
+
+   const userDoc = await userModel.findById(userId).exec()
+
+   let { from, to, limit } = req.query
+
+   const exerciseDocs = limit
+      ? await exerciseModel.find({ userId }).limit(Number(limit)).exec()
+      : await exerciseModel.find({ userId }).exec()
+
+   const log = exerciseDocs
+      .map(exerciseDoc => {
+
+         const { description, duration, date } = exerciseDoc
+
+         return { description, duration, date: adjustDate(date) }
+      })
+      .filter(exercise => {
+
+         if (from && exercise.date < new Date(from)) return false
+         if (to && exercise.date > new Date(to)) return false
+
+         return true
+      })
+
+   res.json({
+      _id: userId,
+      username: userDoc.username,
+      count: log.length,
+      log
+   })
 })
 
 app.post(
@@ -70,7 +103,8 @@ app.post(
       const _id = req.params._id
       const { date, duration, description } = req.body
 
-      console.log('req.body.date', typeof req.body.date)
+      // console.log(`${req.method} ${req.path}`)
+      // console.log(req.body)
 
       const newExercise = await new exerciseModel({
          userId: _id,
@@ -79,17 +113,15 @@ app.post(
          description: description
       }).save()
 
-      console.log('newExercise.date', newExercise.date)
-
       const userDoc = await userModel
          .findOne({ _id })
          .select(['_id', 'username'])
          .exec()
 
       res.json({
-         _id: userDoc._id,
+         _id: String(userDoc._id),
          username: userDoc.username,
-         date: newExercise.date,
+         date: adjustDate(newExercise.date),
          duration: newExercise.duration,
          description: newExercise.description
       })
@@ -99,3 +131,14 @@ app.post(
 const listener = app.listen(process.env.PORT || 3000, () => {
    console.log('Your app is listening on port ' + listener.address().port)
 })
+
+// Utility function to format dates:
+
+function adjustDate(date)
+{
+   const adjustedDate = new Date(date)
+
+   adjustedDate.setMinutes(adjustedDate.getMinutes() + adjustedDate.getTimezoneOffset())
+
+   return adjustedDate.toDateString()
+}
